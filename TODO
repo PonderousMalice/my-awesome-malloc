@@ -1,0 +1,22 @@
+AUTHORS                 [OK]
+README                  [...]
+TODO                    [...]
+Makefile                [...]
+
+malloc(3)               [0]
+free(3)                 [0]
+calloc(3)               [0]
+realloc(3)              [0]
+
+fragmentation           [0]
+recycle                 [0]
+
+extended realloc(3)     [0]
+advanced realloc(3)     [0]
+
+speed                   [0]
+memory footprint        [0]
+recompile self          [0]
+thread-safe             [0]
+real-world allocator    [0]
+corruption proff        [0]

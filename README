@@ -1,0 +1,28 @@
+MALLOC:
+  This is my version of the malloc, calloc, realloc and free functions. 
+
+Prototypes:
+  void *malloc(size_t size);
+  void free(void *ptr);
+  void *calloc(size_t nmeb, size_t size);
+  void *realloc(void *ptr, size_t size);
+
+Description :  
+  - malloc allows you to allocate 'size' bytes and returns a pointer 
+    to the allocated memory.
+  - free allow you to free the memory space pointed by 'ptr'.
+  - calloc same behaviour as malloc, parameters are differents, it allocates
+    memory for an aray of size 'nmeb' of 'size' bytes each. Memory is set to
+    zero.
+  - realloc change the size of a previously allocated memoryspace
+
+How to use:
+  To build the library simply use the make command. You will get libmalloc.so
+  then you have to change $LB_LIBRARY_PATH to the path to libmalloc.so and 
+  then run your applications. This way my implementation is going to 
+  overrite the default one.
+
+Implementation:
+  My plan is to do a mix between first fit implementation and binary buddies.
+
+Test:
