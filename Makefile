@@ -1,5 +1,6 @@
 CC=gcc
 CFLAGS=-Wextra -Werror -Wall -std=c99 -pedantic
+LIBFLAGS=-fPIC -shared -fvisibility=hidden 
 
 INCLUDE=./include
 SRC=$(wildcard src/*.c)
@@ -9,7 +10,7 @@ LIB=libmalloc.so
 .PHONY: all check clean debug
 
 all: $(OBJ)
-	$(CC) -shared $(OBJ) -o $(LIB)
+	$(CC) $(LIBFLAGS) $(OBJ) -o $(LIB)
 
 clean:
 	$(RM) $(OBJ) $(LIB)
@@ -20,5 +21,5 @@ check: all
 debug: CFLAGS+= -g
 debug: all
 
-$(OBJ): CFLAGS+= -I $(INCLUDE) -fPIC
+$(OBJ): CFLAGS+= -I $(INCLUDE) -fPIC -fvisibility=hidden
 $(OBJ): $(SRC)
