@@ -1,24 +1,18 @@
 #ifndef BLOCK
 # define BLOCK
-# include <stddef.h>
+# define MAX_SIZE_BLOCK 4096
+# define MIN_SIZE_BLOCK 8
 # define _DEFAULT_SOURCE
+# include <stddef.h>
 
-struct metadata
+struct block 
 {
   char free;
   size_t size;
-  struct metadata *next_free;
+  struct block *next;
 };
 
-struct page
-{
-  size_t size;
-  struct page *next;
-  struct metadata *nt_free;
-};
-
-void init_mdata(struct metadata *m, char free, size_t size, struct metadata *n);
-void init_page(struct page *p, size_t size, struct page *next);
-void add_page(struct page *l, struct page *new_p);
-struct page *create_page(size_t size);
+void divide(struct block *b);
+void *ptr_data(struct block *b);
+void init_block(struct block *b, char free, size_t size, struct block *next);
 #endif

@@ -1,40 +1,26 @@
 #include "block.h"
 #include <sys/mman.h>
 
-void init_mdata(struct metadata *m, char free, size_t size, struct metadata *n)
+void *ptr_data(struct block *b)
 {
-  if (!m)
-    return;
-  m->free = free;
-  m->size = size;
-  m->next_free = n;
+  return (void*) b ^ sizeof(struct block);
 }
 
-void init_page(struct page *p, size_t size, struct page *next)
+void divide(struct block *b)
 {
-  if (!p)
+  if (!b->free)
     return;
-  p->size = size - sizeof (struct page);
-  p->next = next;
-  struct metadata *tmp = (struct metadata*) ((char *) p + sizeof (struct page));
-  init_mdata(tmp, 1, p->size - sizeof (struct metadata), NULL);
-  p->nt_free = tmp;
+  b->size /= 2;
+  struct block *buddy = b ^ b->size;
+  init_block(buddy, 1, b->size, b->next);
+  b->next = buddy;
 }
 
-void add_page(struct page *l, struct page *new_p)
+void init_block(struct block *b, char free, size_t size, struct block *next)
 {
-  if (!l)
+  if (!b)
     return;
-  while(l->next)
-    l = l->next;
-  l->next = new_p; 
-}
-
-struct page *create_page(size_t size)
-{
-  int prot = PROT_READ | PROT_WRITE;
-  int flags = MAP_ANONYMOUS | MAP_PRIVATE;
-  void *res = mmap(NULL, size, prot, flags, -1, 0);
-  init_page(res, size, NULL);
-  return res; 
+  b->free = free;
+  b->size = size;
+  b->next = next;
 }

@@ -5,5 +5,4 @@
 
 void *malloc(size_t size);
 void *get_block(size_t size);
-void alloc(struct page *p, void *adr, size_t size);
 #endif
