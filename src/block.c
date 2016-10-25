@@ -1,5 +1,4 @@
 #include "block.h"
-#include <sys/mman.h>
 
 void *ptr_data(struct block *b)
 {
