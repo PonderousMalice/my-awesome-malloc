@@ -3,8 +3,9 @@
 __attribute__((__visibility__("default")))
 void *calloc(size_t number, size_t size)
 {
-  size_t tmp = number + size;
-  if (!tmp)
+  if (!number || !size)
     return NULL;
-  return NULL;
+  void *res = malloc(size * number);
+  res = memset(res, 0, size * number);
+  return res;
 }

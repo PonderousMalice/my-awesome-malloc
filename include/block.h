@@ -24,7 +24,6 @@ struct block
 
 struct block *get_buddy(struct block *b);
 struct block *get_theorical_buddy(struct block *b, size_t b_size);
-void *ptr_data(struct block *b);
 void divide(struct block *b, size_t size);
 void init_block(struct block *b, char free, size_t size, struct block *next);
 void init_g();

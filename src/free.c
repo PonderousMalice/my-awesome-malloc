@@ -5,10 +5,8 @@ void free(void *ptr)
 {
   if (!ptr)
     return;
-  union ublock block;
-  block.ptr = ptr;
-  block.uint -= sizeof (struct block);
-  struct block *b = block.ptr;
+  struct block *b = ptr;
+  b--;
   b->free = 1;
   merge(b, g_MAX_SIZE_BLOCK);
 }

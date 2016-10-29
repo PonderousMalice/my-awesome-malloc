@@ -8,6 +8,7 @@ void *realloc(void *ptr, size_t size)
   if (!ptr)
     return malloc(size);
   struct block *b = ptr;
+  b--;
   size = round_ptwo(size);
   if (b->size >= size)
     return ptr;

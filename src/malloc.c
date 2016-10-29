@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-static struct block *g_blocks = NULL;
+struct block *g_blocks = NULL;
 
 __attribute__((__visibility__("default")))
 void *malloc(size_t size)
@@ -19,7 +19,7 @@ void *malloc(size_t size)
       divide(b, size);
     b->free = 0;
   }
-  return ptr_data(b);
+  return ++b;
 }
 
 struct block *get_block(size_t size)
