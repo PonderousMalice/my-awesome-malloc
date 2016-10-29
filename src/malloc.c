@@ -33,7 +33,7 @@ struct block *get_block(size_t size)
       return b;
     b = b->next;
   }
-  if (add_block(g_MAX_SIZE_BLOCK == -1)
+  if (add_block(g_MAX_SIZE_BLOCK) == -1)
     return NULL;
   return get_block(size);
 }
