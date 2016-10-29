@@ -5,7 +5,7 @@ void *realloc(void *ptr, size_t size)
 {
   if (size == 0)
     return NULL;
-  if (!ptr)
+  if (!ptr || size > g_MAX_SIZE_BLOCK)
     return malloc(size);
   struct block *b = ptr;
   b--;
@@ -21,6 +21,6 @@ void *realloc(void *ptr, size_t size)
     free(ptr);
     return res;
   }
-  merge(b, size);
+  merge(b, g_MAX_SIZE_BLOCK);
   return ptr;
-}
+ }
