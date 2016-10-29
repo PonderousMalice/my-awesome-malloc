@@ -8,11 +8,8 @@ void *malloc(size_t size)
   if (size == 0)
     return NULL;
   if (!g_blocks)
-  {
     init_g();
-    if (add_block(g_MAX_SIZE_BLOCK) == -1)
-      return NULL;
-  }
+  size += sizeof (struct block);
   size = round_ptwo(size);
   size = size < g_MIN_SIZE_BLOCK ? g_MIN_SIZE_BLOCK : size;
   struct block *b = get_block(size);
@@ -20,7 +17,7 @@ void *malloc(size_t size)
   {
     if (b->size != size) 
       divide(b, size);
-  b->free = 0;
+    b->free = 0;
   }
   return ptr_data(b);
 }
@@ -36,7 +33,9 @@ struct block *get_block(size_t size)
       return b;
     b = b->next;
   }
-  return NULL;
+  if (add_block(g_MAX_SIZE_BLOCK == -1)
+    return NULL;
+  return get_block(size);
 }
 
 int add_block(size_t size)

@@ -1,4 +1,5 @@
 #include "block.h"
+#include <stdio.h>
 
 void init_g()
 {
@@ -8,7 +9,12 @@ void init_g()
 
 void *ptr_data(struct block *b)
 {
-  return b ? ++b : NULL;
+  if (!b)
+    return NULL;
+  union ublock block;
+  block.ptr = b;
+  block.uint += sizeof (struct block);
+  return block.ptr;
 }
 
 void divide(struct block *b, size_t size)
