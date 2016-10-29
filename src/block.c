@@ -13,7 +13,7 @@ void divide(struct block *b, size_t size)
   union ublock buddy;
   buddy.ptr = get_buddy(b);
   if (buddy.ptr < b)
-    buddy.uint += 2 * b->size;
+    buddy.uint += (b->size << 1);
   init_block(buddy.ptr, 1, b->size, b->next);
   b->next = buddy.ptr;
   divide(b, size);
