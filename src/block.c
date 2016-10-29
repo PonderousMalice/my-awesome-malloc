@@ -1,5 +1,4 @@
 #include "block.h"
-#include <stdio.h>
 
 void init_g()
 {
@@ -30,7 +29,7 @@ void divide(struct block *b, size_t size)
 
 void merge(struct block *b)
 {
-  if (b->size == g_MAX_SIZE_BLOCK)
+  if (b->size >= g_MAX_SIZE_BLOCK)
     return;
   struct block *buddy = get_buddy(b);
   if (b->next == buddy)
