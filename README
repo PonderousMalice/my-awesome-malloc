@@ -10,19 +10,33 @@ Prototypes:
 Description :  
   - malloc allows you to allocate 'size' bytes and returns a pointer 
     to the allocated memory.
-  - free allow you to free the memory space pointed by 'ptr'.
+  - free allows you to free the memory space pointed by 'ptr'.
   - calloc same behaviour as malloc, parameters are differents, it allocates
     memory for an aray of size 'nmeb' of 'size' bytes each. Memory is set to
     zero.
-  - realloc change the size of a previously allocated memoryspace
+  - realloc changes the size of a previously allocated memoryspace
 
 How to use:
   To build the library simply use the make command. You will get libmalloc.so
-  then you have to change $LB_LIBRARY_PATH to the path to libmalloc.so and 
+  then you have to change LD_PRELOAD to the path of libmalloc.so and 
   then run your applications. This way my implementation is going to 
   overrite the default one.
 
 Implementation:
-  My plan is to do a mix between first fit implementation and binary buddies.
+  My implentation uses the binary buddies algorithm and first fit.
 
-Test:
+  Memory is divised in blocks, each block as a power of two as a size.
+  The maximum size is the size of a page and the minium is the size of 
+  my metadatas + the size of an int.
+  
+  When malloc is called, it will look for the first free block with
+  enough space to contain the size given rounded to it's closest power of
+  two. If the block's size is too wide, it is divided by two until it's
+  equal to the size given.
+
+  If there's no block or there's not enough space. A new block is allocated
+  and the process described above occurs.
+
+  If the size asked is too wide a special block of the asked size rounded to 
+  it's closest power of two is created. One's it's freed it will be divided
+  in regular blocks.

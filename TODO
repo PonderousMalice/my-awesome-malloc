@@ -1,18 +1,18 @@
 AUTHORS                 [OK]
 README                  [...]
-TODO                    [...]
-Makefile                [...]
+TODO                    [OK]
+Makefile                [OK]
 
-malloc(3)               [0]
-free(3)                 [0]
-calloc(3)               [0]
-realloc(3)              [0]
+malloc(3)               [0K]
+free(3)                 [0K]
+calloc(3)               [0K]
+realloc(3)              [0K]
 
-fragmentation           [0]
-recycle                 [0]
+fragmentation           [0K]
+recycle                 [0K]
 
-extended realloc(3)     [0]
-advanced realloc(3)     [0]
+extended realloc(3)     [0K]
+advanced realloc(3)     [0K]
 
 speed                   [0]
 memory footprint        [0]
