@@ -10,9 +10,12 @@ void divide(struct block *b, size_t size)
   if (!b->free || b->size == size || b->size == g_MIN_SIZE_BLOCK)
     return;
   b->size >>= 1;
-  struct block *buddy = get_buddy(b);
-  init_block(buddy, 1, b->size, b->next);
-  b->next = buddy;
+  union ublock buddy;
+  buddy.ptr = get_buddy(b);
+  if (buddy.ptr < b)
+    buddy.uint += 2 * b->size;
+  init_block(buddy.ptr, 1, b->size, b->next);
+  b->next = buddy.ptr;
   divide(b, size);
 }
 
