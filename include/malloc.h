@@ -14,4 +14,5 @@ static const int g_prot = PROT_READ | PROT_WRITE;
 void *malloc(size_t size);
 struct block *get_block(size_t size);
 int add_block(size_t size);
+size_t max_free_b(struct block *b);
 #endif

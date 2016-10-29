@@ -48,3 +48,16 @@ int add_block(size_t size)
   g_blocks = new_buddy;
   return 0;
 }
+
+size_t max_free_b(struct block *b)
+{
+  size_t res = b->size;
+  struct block *buddy = get_buddy(b);
+  while (buddy->free && buddy->size == res)
+  {
+    res <<= 1;
+    buddy = get_theorical_buddy(b, res);
+  }
+  return res;
+}
+

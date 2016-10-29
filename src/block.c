@@ -27,20 +27,23 @@ void divide(struct block *b, size_t size)
   divide(b, size);
 }
 
-void merge(struct block *b)
+void merge(struct block *b, size_t size)
 {
-  if (b->size >= g_MAX_SIZE_BLOCK)
+  if (b->size >= size)
     return;
   struct block *buddy = get_buddy(b);
-  if (b->next == buddy)
+  if (buddy->free)
   {
-    b->size <<= 1;
-    b->next = buddy->next;
-  }
-  else
-  {
-    buddy->size <<= 1;
-    buddy->next = b->next;
+    if (b->next == buddy)
+    {
+      b->size <<= 1;
+      b->next = buddy->next;
+    }
+    else
+    {
+      buddy->size <<= 1;
+      buddy->next = b->next;
+    }
   }
 }
 
@@ -59,5 +62,14 @@ struct block *get_buddy(struct block *b)
   union ublock buddy;
   block.ptr = b;
   buddy.uint = block.uint ^ b->size;
+  return buddy.ptr;
+}
+
+struct block *get_theorical_buddy(struct block *b, size_t b_size)
+{
+  union ublock block;
+  union ublock buddy;
+  block.ptr = b;
+  buddy.uint = block.uint ^ b_size;
   return buddy.ptr;
 }

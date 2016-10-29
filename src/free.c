@@ -10,5 +10,5 @@ void free(void *ptr)
   block.uint -= sizeof (struct block);
   struct block *b = block.ptr;
   b->free = 1;
-  merge(b);
+  merge(b, g_MAX_SIZE_BLOCK);
 }
