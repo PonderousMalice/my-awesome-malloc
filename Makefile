@@ -16,7 +16,9 @@ clean:
 	$(RM) $(OBJ) $(LIB)
 
 check: all
-	./tests/test.sh
+	$(CC) -g ./tests/unit.c
+	./a.out
+	$(RM) a.out
 
 debug: CFLAGS+= -g
 debug: all

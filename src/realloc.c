@@ -7,6 +7,7 @@ void *realloc(void *ptr, size_t size)
     return NULL;
   size_t new_size = size + sizeof (struct block);
   new_size = round_ptwo(new_size);
+  size = size < g_MIN_SIZE_BLOCK ? g_MIN_SIZE_BLOCK : size;
   if (!ptr || new_size > g_MAX_SIZE_BLOCK)
     return malloc(size);
   struct block *b = ptr;

@@ -25,18 +25,17 @@ void merge(struct block *b, size_t size)
   if (b->size >= size)
     return;
   struct block *buddy = get_buddy(b);
+  if (!buddy->free || buddy->size != b->size)
+    return;
   if (b > buddy)
   {
     struct block *tmp = b;
     b = buddy;
     buddy = tmp;
   }
-  if (buddy->free && buddy->size == b->size)
-  {
-    b->size <<= 1;
-    b->next = buddy->next;
-    merge(b, size);
-  }
+  b->size <<= 1;
+  b->next = buddy->next;
+  merge(b, size);
 }
 
 void init_block(struct block *b, char free, size_t size, struct block *next)
