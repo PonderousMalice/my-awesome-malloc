@@ -61,3 +61,12 @@ size_t max_free_b(struct block *b)
   return res;
 }
 
+struct block *get_theorical_buddy(struct block *b, size_t b_size)
+{
+  union ublock block;
+  union ublock buddy;
+  block.ptr = b;
+  buddy.uint = block.uint ^ b_size;
+  return buddy.ptr;
+}
+

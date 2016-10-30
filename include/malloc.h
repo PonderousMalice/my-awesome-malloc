@@ -15,4 +15,5 @@ void *malloc(size_t size);
 struct block *get_block(size_t size);
 int add_block(size_t size);
 size_t max_free_b(struct block *b);
+struct block *get_theorical_buddy(struct block *b, size_t b_size);
 #endif
