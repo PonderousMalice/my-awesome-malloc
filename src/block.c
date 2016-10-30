@@ -5,6 +5,7 @@ void init_g()
   g_MAX_SIZE_BLOCK = sysconf(_SC_PAGESIZE);
   g_MIN_SIZE_BLOCK = round_ptwo(sizeof (struct block));
 }
+
 void divide(struct block *b, size_t size)
 {
   if (!b->free || b->size == size || b->size == g_MIN_SIZE_BLOCK)
@@ -24,20 +25,17 @@ void merge(struct block *b, size_t size)
   if (b->size >= size)
     return;
   struct block *buddy = get_buddy(b);
+  if (b > buddy)
+  {
+    struct block *tmp = b;
+    b = buddy;
+    buddy = tmp;
+  }
   if (buddy->free && buddy->size == b->size)
   {
-    if (b->next == buddy)
-    {
-      b->size <<= 1;
-      b->next = buddy->next;
-      merge(b, size);
-    }
-    else
-    {
-      buddy->size <<= 1;
-      buddy->next = b->next;
-      merge(buddy, size);
-    }
+    b->size <<= 1;
+    b->next = buddy->next;
+    merge(b, size);
   }
 }
 

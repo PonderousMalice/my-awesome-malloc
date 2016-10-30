@@ -19,7 +19,7 @@ void *malloc(size_t size)
       divide(b, size);
     b->free = 0;
   }
-  return ++b;
+  return b ? ++b : NULL;
 }
 
 struct block *get_block(size_t size)

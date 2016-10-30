@@ -38,5 +38,5 @@ Implementation:
   and the process described above occurs.
 
   If the size asked is too wide a special block of the asked size rounded to 
-  it's closest power of two is created. One's it's freed it will be divided
+  it's closest power of two is created. Once it's freed it will be divided
   in regular blocks.
