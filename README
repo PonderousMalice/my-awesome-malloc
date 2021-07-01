@@ -19,13 +19,13 @@ Description :
 How to use:
   To build the library simply use the make command. You will get libmalloc.so
   then you have to change LD_PRELOAD to the path of libmalloc.so and 
-  then run your applications. This way my implementation is going to 
+  then run your application. This way my implementation is going to 
   overrite the default one.
 
 Implementation:
   My implentation uses the binary buddies algorithm and first fit.
 
-  Memory is divised in blocks, each block as a power of two as a size.
+  Memory is divised in blocks, each block has a power of two as a size.
   The maximum size is the size of a page and the minium is the size of 
   my metadatas + the size of an int.
   
